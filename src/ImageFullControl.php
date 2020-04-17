@@ -5,7 +5,6 @@ namespace Hesham14Yahia\ImageFullControl;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-
 class ImageFullControl
 {
 
