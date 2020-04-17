@@ -1,0 +1,24 @@
+{
+    "name": "hesham14yahia/image-full-control",
+    "description": "Laravel package gives you full control of uploading, manipulating and managing app images.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hesham Yahia",
+            "email": "hesham14yahia@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Hesham14Yahia\\ImageFullControl\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hesham14Yahia\\ImageFullControl\\ImageFullControlServiceProvider"
+            ]
+        }
+    }
+}
