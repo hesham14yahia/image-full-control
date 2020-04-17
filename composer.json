@@ -8,7 +8,9 @@
             "email": "hesham14yahia@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "intervention/image": "^2.5"
+    },
     "autoload": {
         "psr-4": {
             "Hesham14Yahia\\ImageFullControl\\": "src/"
