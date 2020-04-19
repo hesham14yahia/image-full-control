@@ -64,16 +64,16 @@ the method returns the new uploaded image name and deletes the old one, if you d
 
 ## You can also "manipulating"
 
-Determine image width or height or even quilty, all this is optional, but they have an order you should stick with it, so if you will use all, it will be like that.
+Determine image width or height or even quality, all this is optional, but they have an order you should stick with it, so if you will use all, it will be like that.
 
 ```
 ImageFullControl::uploadImage($request->image, "users", $user->image, 50, 100, 75);
 ```
 
-it will make the image with width 50px and height 100px and quilty 75%, if you want to use only quilty for example, it will be like that.
+it will make the image with width 50px and height 100px and quality 75%, if you want to use only quality for example, it will be like that.
 
 ```
 ImageFullControl::uploadImage($request->image, "users", $user->image, null, null, 11);
 ```
 
-Note that default quilty is 100%.
+Note that default quality is 100%.
