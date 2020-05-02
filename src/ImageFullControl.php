@@ -27,13 +27,9 @@ class ImageFullControl
             // fetch image
             $img = Image::make($image);
 
-            // check if resize requested
+            // check if manipulation requested
             if ($width !== null or $height !== null)
-                // image resize
-                if ($img->width() > $width)
-                    $img->resize($width, $height, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
+                self::imageManipulation($img, $width, $height);
 
             // check if there is an old image and check if this image isn't the default image
             if ($old_image !== null && !Str::contains($old_image, $folder_name))
@@ -59,5 +55,14 @@ class ImageFullControl
     protected static function generateName($extension)
     {
         return Str::random(5) . time() . '.' . $extension;
+    }
+
+    // image manipulation
+    protected static function imageManipulation($img, $width, $height)
+    {
+        // image resize
+        $img->resize($img->width() > $width ? $width : null, $img->width() > $height ? $height : null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
     }
 }
