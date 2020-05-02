@@ -76,4 +76,12 @@ it will make the image with width 50px and height 100px and quality 75%, if you 
 ImageFullControl::uploadImage($request->image, "users", $user->image, null, null, 11);
 ```
 
-Note that default quality is 100%.
+**_Note:_** default quilty is 100%.
+
+## Image Full Path
+
+To make handling images easier, start from version `1.3.0` we add method returns image full path accepts folder name and image name, it will be like that.
+
+```
+ImageFullControl::imageFullPath("users", $image_name);
+```

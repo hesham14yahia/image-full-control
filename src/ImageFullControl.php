@@ -24,34 +24,53 @@ class ImageFullControl
         // check image and folder_name exist
         if ($image && $folder_name) {
 
-            // get image extension
-            $extension = $image->getClientOriginalExtension();
-
-            // image name for store
-            $uploaded_image_name = Str::random(5) . time() . '.' . $extension;
-
             // fetch image
             $img = Image::make($image);
 
-            // check if resize requested
+            // check if manipulation requested
             if ($width !== null or $height !== null)
-                // image resize
-                if ($img->width() > $width)
-                    $img->resize($width, $height, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
+                self::imageManipulation($img, $width, $height);
+
 
             // check if there is an old image and check if this image isn't the default image
             if ($old_image !== null && !Str::contains($old_image, $folder_name))
                 // remove old image
-                unlink(public_path() . '/uploads/' . $folder_name . '/' . $old_image);
+                unlink(self::imageFullPath($folder_name, $old_image));
 
+
+            // image name for store
+            $uploaded_image_name = self::generateName($image);
 
             // store uploaded image
-            $img->save(public_path() . '/uploads/' . $folder_name . '/' . $uploaded_image_name, $quality);
+            $img->save(self::imageFullPath($folder_name, $uploaded_image_name), $quality);
 
             // return new uploaded image name
             return $uploaded_image_name;
         }
+    }
+
+    // generate image name
+    protected static function generateName($image)
+    {
+        // get image extension
+        $extension = $image->getClientOriginalExtension();
+
+        // return image generated name
+        return Str::random(5) . time() . '.' . $extension;
+    }
+
+    // image manipulation
+    protected static function imageManipulation($img, $width, $height)
+    {
+        // image resize
+        $img->resize($img->width() > $width ? $width : null, $img->width() > $height ? $height : null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+    }
+
+    // image full path
+    public static function imageFullPath($folder_name, $image)
+    {
+        return public_path() . '/uploads/' . $folder_name . '/' . $image;
     }
 }
