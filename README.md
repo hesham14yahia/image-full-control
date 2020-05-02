@@ -77,3 +77,11 @@ ImageFullControl::uploadImage($request->image, "users", $user->image, null, null
 ```
 
 **_Note:_** default quilty is 100%.
+
+## Image Full Path
+
+To make handling images easier, start from version `1.3.0` we add method returns image full path accepts folder name and image name, it will be like that.
+
+```
+ImageFullControl::imageFullPath("users", $image_name);
+```
