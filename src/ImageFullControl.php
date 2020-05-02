@@ -31,17 +31,15 @@ class ImageFullControl
             if ($width !== null or $height !== null)
                 self::imageManipulation($img, $width, $height);
 
+
             // check if there is an old image and check if this image isn't the default image
             if ($old_image !== null && !Str::contains($old_image, $folder_name))
                 // remove old image
                 unlink(public_path() . '/uploads/' . $folder_name . '/' . $old_image);
 
 
-            // get image extension
-            $extension = $image->getClientOriginalExtension();
-
             // image name for store
-            $uploaded_image_name = self::generateName($extension);
+            $uploaded_image_name = self::generateName($image);
 
             // store uploaded image
             $img->save(public_path() . '/uploads/' . $folder_name . '/' . $uploaded_image_name, $quality);
@@ -52,8 +50,12 @@ class ImageFullControl
     }
 
     // generate image name
-    protected static function generateName($extension)
+    protected static function generateName($image)
     {
+        // get image extension
+        $extension = $image->getClientOriginalExtension();
+
+        // return image generated name
         return Str::random(5) . time() . '.' . $extension;
     }
 
