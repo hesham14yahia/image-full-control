@@ -35,14 +35,14 @@ class ImageFullControl
             // check if there is an old image and check if this image isn't the default image
             if ($old_image !== null && !Str::contains($old_image, $folder_name))
                 // remove old image
-                unlink(public_path() . '/uploads/' . $folder_name . '/' . $old_image);
+                unlink(self::imageFullPath($folder_name, $old_image));
 
 
             // image name for store
             $uploaded_image_name = self::generateName($image);
 
             // store uploaded image
-            $img->save(public_path() . '/uploads/' . $folder_name . '/' . $uploaded_image_name, $quality);
+            $img->save(self::imageFullPath($folder_name, $uploaded_image_name), $quality);
 
             // return new uploaded image name
             return $uploaded_image_name;
@@ -66,5 +66,11 @@ class ImageFullControl
         $img->resize($img->width() > $width ? $width : null, $img->width() > $height ? $height : null, function ($constraint) {
             $constraint->aspectRatio();
         });
+    }
+
+    // image full path
+    public static function imageFullPath($folder_name, $image)
+    {
+        return public_path() . '/uploads/' . $folder_name . '/' . $image;
     }
 }
