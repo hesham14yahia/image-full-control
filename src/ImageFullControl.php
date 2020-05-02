@@ -24,12 +24,6 @@ class ImageFullControl
         // check image and folder_name exist
         if ($image && $folder_name) {
 
-            // get image extension
-            $extension = $image->getClientOriginalExtension();
-
-            // image name for store
-            $uploaded_image_name = Str::random(5) . time() . '.' . $extension;
-
             // fetch image
             $img = Image::make($image);
 
@@ -47,11 +41,23 @@ class ImageFullControl
                 unlink(public_path() . '/uploads/' . $folder_name . '/' . $old_image);
 
 
+            // get image extension
+            $extension = $image->getClientOriginalExtension();
+
+            // image name for store
+            $uploaded_image_name = self::generateName($extension);
+
             // store uploaded image
             $img->save(public_path() . '/uploads/' . $folder_name . '/' . $uploaded_image_name, $quality);
 
             // return new uploaded image name
             return $uploaded_image_name;
         }
+    }
+
+    // generate image name
+    protected static function generateName($extension)
+    {
+        return Str::random(5) . time() . '.' . $extension;
     }
 }
